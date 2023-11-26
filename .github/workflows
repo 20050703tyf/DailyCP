@@ -1,1 +1,27 @@
-anto_signin.ym1
+name: Auto Sign In
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  sign_in:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set Up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: Run Sign In Script
+        run: |
+          python DailyCP.py
+        env:
+          SCHOOL_NAME: ${{ secrets.SCHOOL_NAME }}
+          ACCOUNT: ${{ secrets.ACCOUNT }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          ADDRESS: ${{ secrets.ADDRESS }}
